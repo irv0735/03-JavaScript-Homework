@@ -1,7 +1,7 @@
 // Assignment Code - searches the html for ID generate and ties variable to it
 var generateBtn = document.querySelector("#generate");
 
-// Global arrays for character options
+// Global strings for character options
 const lowerAlpha = "abcdefghijklmnopqrstuvwxyz";
 const upperAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const numerals = "0123456789";
