@@ -1,11 +1,11 @@
 // Assignment Code - searches the html for ID generate and ties variable to it
 var generateBtn = document.querySelector("#generate");
 
-// Global arrays
+// Global arrays for character options
 const lowerAlpha = "abcdefghijklmnopqrstuvwxyz";
 const upperAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const numerals = "0123456789";
-const specials = " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+const specials = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
 // Write password to the #password input
 function writePassword() {
@@ -16,6 +16,7 @@ function writePassword() {
 
 }
 
+// Generate the password (main function)
 function generatePassword() {
   let passwordLength = getLength();
   let characterRules = getRules();
@@ -23,19 +24,30 @@ function generatePassword() {
       upperCase = characterRules.upperCase,
       numeric = characterRules.numeric,
       special = characterRules.special;
-  if (lowerCase && upperCase && numeric && special) {
-    let options = lowerAlpha.concat(upperAlpha, numerals, specials); 
-  } else if (lowerCase && upperCase && numeric && !special) {
-    let options = lowerAlpha.concat(upperAlpha, numerals);
-  } else if (lowerCase && upperCase)
-
-  for (let i = 0; i < passwordLength; i++) {
-    
-    
+  let options = "";
+  let newPass = "";
+    // Combine acceptable characters into a single string
+  if (lowerCase) {
+    options = lowerAlpha;
   }
-  return newPassword;
+  if (upperCase) {
+    options = options.concat(upperAlpha);
+  }
+  if (numeric) {
+    options = options.concat(numerals);
+  }
+  if (special) {
+    options = options.concat(specials);
+  }
+    // Create password string using random character selection from the options string created
+  for (let i = 0; i < passwordLength; i++) {
+    let randomCharacter = options[Math.floor(Math.random()*options.length)];
+    newPass = newPass.concat(randomCharacter);   
+  }
+  return newPass
 }
 
+// Gather user input for length of password
 function getLength() {
   const lengthPrompt = "How many characters would you like (Minimum of 8, Maximimum of 128)";
   let length = window.prompt(lengthPrompt);
@@ -54,9 +66,10 @@ function getLength() {
   }
 }
 
+// Gather password criteria
 function getRules() {
   const lowerPrompt = "Would you like to include lower case letters?";
-  const upperPrompt = "Would you liek to include upper case letters?";
+  const upperPrompt = "Would you like to include upper case letters?";
   const numericPrompt = "Would you like to include numeric values?";
   const specialPrompt = "Would you like to include special characters?";
   let lowerCase = window.confirm(lowerPrompt);
@@ -92,14 +105,3 @@ function getRules() {
 generateBtn.addEventListener("click", writePassword);
 
 
-
-
-// WHEN all prompts are answered
-// THEN a password is generated that matches the selected criteria
-
-// -> Generate random password based on inputs that are allowed
-
-// WHEN the password is generated
-// THEN the password is either displayed in an alert or written to the page
-
-// -> Pass to the page to be written in the box using provided function
